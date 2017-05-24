@@ -7,35 +7,75 @@
 		<link href="css/style.css" rel='stylesheet' type='text/css' />
    		<link rel="stylesheet" href="fonts/css/font-awesome.min.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		</script>
-	</head>
-	<body>
-		<div class="container">
-			<div class="top-header">
-				<div class="sign-in-box">
-							<h2>Login @ TekChat</h2>
-							<form action="chat.html">
-								<div class="text-boxs">
-									<span class="text-box">
-										<label class="s-user"> </label>
-										<input type="text" placeholder="Username" required /> 
-										<div class="clearfix"> </div>
-									</span>
-									<span class="text-box">
-										<label class="s-lock"> </label>
-										<input type="text" placeholder="password" required /> 
-										<div class="clearfix"> </div>
-									</span>
-								</div>
-							<input type="submit" value="sign in" />
-							</form>
-							<p class="not-member">
-								<a class="member-sign"> Not a member?</a> <a class="member-signup" href="register.html">sign Up Now <span> </span></a>
-							</p>
-						</div>
+	</script>
+</head>
+<body>
+	<div class="container">
+		<div class="top-header">
+			<div class="sign-in-box">
+				<h2>Login @ TekChat</h2>
+				<form action="chat.html">
+					<div class="text-boxs">
+						<span class="text-box">
+							<label class="s-user"> </label>
+							<input type="text" id="name" placeholder="Username" required /> 
+							<div class="clearfix"> </div>
+						</span>
+						<span class="text-box">
+							<label class="s-lock"> </label>
+							<input type="text" id="password" placeholder="password" required /> 
+							<div class="clearfix"> </div>
+						</span>
+					</div>
+					<input type="button" value="sign in" id="login" />
+				</form>
+				<p class="not-member">
+					<a class="member-sign"> Not a member?</a> <a class="member-signup" href="register.html">sign Up Now <span> </span></a>
+				</p>
 			</div>
-			<div class="clearfix"> </div>			
 		</div>
-	</body>
+		<div class="clearfix"> </div>			
+	</div>
+	<script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+	<script>
+		/*$( document ).ready(function() {
+			var name = localStorage.getItem("name");
+			if(name)
+			{
+			window.location.replace('chat.html');
+			}
+		});*/
+		
+		var config = {
+			apiKey: "AIzaSyDRLiPrIl4-64sSwxQsxTkjaRYp35GBo1k",
+			authDomain: "tekchat-22ff1.firebaseapp.com",
+			databaseURL: "https://tekchat-22ff1.firebaseio.com",
+			projectId: "tekchat-22ff1",
+			storageBucket: "tekchat-22ff1.appspot.com",
+			messagingSenderId: "536655583469"
+		};
+		firebase.initializeApp(config);
+		
+		function getUserData(name, password) {
+			return firebase.database().ref('/users/'+name).once('value').then(function(snapshot) {
+				userRecord = snapshot.val();
+				if(userRecord.password == password ){
+					localStorage.setItem("name", name);
+					window.location.replace('chat.html');
+				}else{
+					console.log("Wrong");
+				}
+			});
+		}
+		
+		$("#login").on('click',function(){
+			var name = $("#name").val();
+			var password = $("#password").val();
+			if((name !='') && (password !='')){
+				getUserData(name, password);
+			}		
+		});
+	</script>
+</body>
 </html>
 

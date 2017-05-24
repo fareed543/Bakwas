@@ -40,7 +40,7 @@
 						</li>
 					</ul>
 					<ul class="logout list-unstyled">
-						<li><a href="#"><span> </span></a></li>
+						<li><a><span id="logout"> </span></a></li>
 					</ul>
 				</div>
 				<div class="clearfix"> </div>				
@@ -48,52 +48,87 @@
 			<div class="clearfix"> </div>
 			<div class="content">
 				<div class="3-cols">
-				
-				<div class="chat-box">
-							<div class="people-on-chat">
-								<div class="chat-msg">
-									<div class="col-xs-2 chat-people">
-										<a href="#"><img src="images/user-pic.jpg" title="name" /></a>
-									</div>
-									<div class="col-xs-9 chat-msg-on">
-										<p>Lorem ipsum dolor sit amet, consectetur elit. ?</p>
-										<span> </span>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-								<div class="chat-msg">
-									<div class="col-xs-9 chat-msg-on chat-msg-replay">
-										<p>Nunc pharetra dui fermentum aliquam. ?</p>
-										<span> </span>
-									</div>
-									<div class="col-xs-2 chat-people">
-										<a href="#"><img src="images/user-pic.jpg" title="name" /></a>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-								<div class="chat-msg">
-									<div class="col-xs-2 chat-people">
-										<a href="#"><img src="images/user-pic.jpg" title="name" /></a>
-									</div>
-									<div class="col-xs-9 chat-msg-on">
-										<p> eu pretium risus. In sit amet est cursus. ?</p>
-										<span> </span>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-							</div>
-							<div class="msg-type-box">
-								<form>
-									<input type="text" value="Type your message..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type your message...';}">
-									<input type="submit" value="Send" />
-								</form>
-							</div>
+					
+					<div class="chat-box">
+						<div class="people-on-chat">
 						</div>
-						
+						<div class="msg-type-box">
+							<form>
+								<input id="message" type="text" value="Type your message..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type your message...';}">
+								<input type="button" id="post" value="Send" />
+							</form>
+						</div>
+					</div>
+					
 					<div class="clearfix"> </div>
 				</div>
 			</div>
 		</div>
 	</body>
+	<script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+	<script>
+		
+		$( document ).ready(function() {
+			var name = localStorage.getItem("name");
+			if(!name)
+			{
+				window.location.replace('login.html');
+			}
+			
+			var config = {
+				apiKey: "AIzaSyDRLiPrIl4-64sSwxQsxTkjaRYp35GBo1k",
+				authDomain: "tekchat-22ff1.firebaseapp.com",
+				databaseURL: "https://tekchat-22ff1.firebaseio.com",
+				projectId: "tekchat-22ff1",
+				storageBucket: "tekchat-22ff1.appspot.com",
+				messagingSenderId: "536655583469"
+			};
+			firebase.initializeApp(config);
+			
+			function writeUserData(name, message) {
+				firebase.database().ref('chat/').push({
+					username: name,
+					message: message
+				});
+			}
+			$("#post").on('click',function(){
+				var name = localStorage.getItem("name");			
+				var message = $("#message").val();
+				if((name !='') && (message !='')){
+					writeUserData(name, message);
+				}
+				return firebase.database().ref('/chat/').once('value').then(function(snapshot) {
+					var conversation = '';
+					$.each(snapshot.val(), function( index, value ) {
+						if(value.username && value.message){
+							conversation += '<div class="chat-msg"><div class="col-xs-2 chat-people"><a href="#">'+value.username+'</a></div><div class="col-xs-9 chat-msg-on"><p>'+value.message+'</p><span> </span></div><div class="clearfix"> </div></div>';
+						}					
+					});
+					$(".people-on-chat").empty().append(conversation);
+				});
+			});
+			
+			return firebase.database().ref('/chat/').once('value').then(function(snapshot) {
+				var conversation = '';
+				$.each(snapshot.val(), function( index, value ) {
+					if(value.username && value.message){
+						conversation += '<div class="chat-msg"><div class="col-xs-2 chat-people"><a href="#">'+value.username+'</a></div><div class="col-xs-9 chat-msg-on"><p>'+value.message+'</p><span> </span></div><div class="clearfix"> </div></div>';
+					}					
+				});
+				$(".people-on-chat").empty().append(conversation);
+			});
+			
+			
+		});
+		$("#logout").on('click',function(){
+				console.log("logout");
+				localStorage.removeItem("name");
+				localStorage.removeItem("email");
+				localStorage.removeItem("password");				
+				window.location.replace('index.html');
+			});
+	</script>
+	
+	
 </html>
 
