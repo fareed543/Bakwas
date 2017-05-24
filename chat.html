@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Chat @ TekChat</title>
+		<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="js/jquery.min.js"></script>
+		 <!-- Custom Theme files -->
+		<link href="css/style.css" rel='stylesheet' type='text/css' />
+   		 <!-- Custom Theme files -->
+   		 <!----font-Awesome----->
+   		<link rel="stylesheet" href="fonts/css/font-awesome.min.css">
+   		<!----font-Awesome----->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+		</script>
+	</head>
+	<body>
+		<!-----container----->
+		<div class="container">
+			<div class="top-header">
+				<!----script-for-sidepanle-nav---->
+				<link type="text/css" rel="stylesheet" href="css/jquery.mmenu.all.css" />
+				<script type="text/javascript" src="js/jquery.mmenu.js"></script>
+				<script type="text/javascript">
+					//	The menu on the left
+					$(function() {
+						$('nav#menu-left').mmenu();
+					});
+				</script>
+				<!--//script-for-sidepanle-nav---->
+				<div class="logo">
+					<span>TekChat</span>
+				</div>
+				<!---usernotifications---->
+				<div class="usernotifications">
+					<ul class="user-profile list-unstyled">
+						<li><a href="#"><img src="images/user-pic.jpg" title="admin" /></a>
+							<ul class="sub list-unstyled">
+								<li><a href="#">Profile</a></li>
+								<li><a href="#">Settings</a></li>
+								<li><a href="#">custom</a></li>
+							</ul>
+						</li>
+					</ul>
+					<ul class="notification list-unstyled user-profile">
+						<li><a href="#"><img src="images/notification-icon.png" title="notifications" /></a>
+							<ul class="sub list-unstyled">
+								<li><a href="#">20</a></li>
+							</ul>
+						</li>
+					</ul>
+					<ul class="logout list-unstyled">
+						<li><a href="#"><span> </span></a></li>
+					</ul>
+				</div>
+				<div class="clearfix"> </div>
+				<!--//usernotifications---->
+			</div>
+			<div class="clearfix"> </div>
+			<!------ content ----->
+			<div class="content">
+				<div class="3-cols">
+				
+				<div class="chat-box">
+							<div class="people-on-chat">
+								<div class="chat-msg">
+									<div class="col-xs-2 chat-people">
+										<a href="#"><img src="images/user-pic.jpg" title="name" /></a>
+									</div>
+									<div class="col-xs-9 chat-msg-on">
+										<p>Lorem ipsum dolor sit amet, consectetur elit. ?</p>
+										<span> </span>
+									</div>
+									<div class="clearfix"> </div>
+								</div>
+								<!---->
+								<div class="chat-msg">
+									<div class="col-xs-9 chat-msg-on chat-msg-replay">
+										<p>Nunc pharetra dui fermentum aliquam. ?</p>
+										<span> </span>
+									</div>
+									<div class="col-xs-2 chat-people">
+										<a href="#"><img src="images/user-pic.jpg" title="name" /></a>
+									</div>
+									<div class="clearfix"> </div>
+								</div>
+								<!---->
+								<div class="chat-msg">
+									<div class="col-xs-2 chat-people">
+										<a href="#"><img src="images/user-pic.jpg" title="name" /></a>
+									</div>
+									<div class="col-xs-9 chat-msg-on">
+										<p> eu pretium risus. In sit amet est cursus. ?</p>
+										<span> </span>
+									</div>
+									<div class="clearfix"> </div>
+								</div>
+								<!---->
+							</div>
+							<!----msg-type-box---->
+							<div class="msg-type-box">
+								<form>
+									<input type="text" value="Type your message..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type your message...';}">
+									<input type="submit" value="Send" />
+								</form>
+							</div>
+							<!--//msg-type-box---->
+						</div>
+						
+					<div class="clearfix"> </div>
+				</div>
+			</div>
+			<!---- //content ----->
+			
+		</div>
+		<!---//container----->
+	</body>
+</html>
+
