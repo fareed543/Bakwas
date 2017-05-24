@@ -1,5 +1,5 @@
 html, body{
-  	 font-family: 'Raleway-Light';
+	font-family: 'Raleway-Light';
     font-size: 100%;
     background-color: #F0F3F6;
 }
@@ -13,27 +13,27 @@ body a{
 /*----importing-fonts-----*/
 /*---Raleway-Bold----*/
 @font-face {
-  font-family: 'Raleway-SemiBold';
-  src: url('../fonts/bold/Raleway-SemiBold.eot');
-  src: url('../fonts/bold/Raleway-SemiBold.eot?#iefix') format('embedded-opentype'),
-       url('../fonts/bold/Raleway-SemiBold.woff') format('woff'),
-       url('../fonts/bold/Raleway-SemiBold.ttf') format('truetype'),
-       url('../fonts/bold/Raleway-SemiBold.svg#Raleway-SemiBold') format('svg');
+	font-family: 'Raleway-SemiBold';
+	src: url('../fonts/bold/Raleway-SemiBold.eot');
+	src: url('../fonts/bold/Raleway-SemiBold.eot?#iefix') format('embedded-opentype'),
+	url('../fonts/bold/Raleway-SemiBold.woff') format('woff'),
+	url('../fonts/bold/Raleway-SemiBold.ttf') format('truetype'),
+	url('../fonts/bold/Raleway-SemiBold.svg#Raleway-SemiBold') format('svg');
 }
 .fontpro,.fontpro-35200 {
-  font-family: 'Raleway-SemiBold',sans-serif;
+	font-family: 'Raleway-SemiBold',sans-serif;
 }
 /*---Raleway-light----*/
 @font-face {
-  font-family: 'Raleway-Light';
-  src: url('../fonts/light/Raleway-Light.eot');
-  src: url('../fonts/light/Raleway-Light.eot?#iefix') format('embedded-opentype'),
-       url('../fonts/light/Raleway-Light.woff') format('woff'),
-       url('../fonts/light/Raleway-Light.ttf') format('truetype'),
-       url('../fonts/light/Raleway-Light.svg#Raleway-Light') format('svg');
+	font-family: 'Raleway-Light';
+	src: url('../fonts/light/Raleway-Light.eot');
+	src: url('../fonts/light/Raleway-Light.eot?#iefix') format('embedded-opentype'),
+	url('../fonts/light/Raleway-Light.woff') format('woff'),
+	url('../fonts/light/Raleway-Light.ttf') format('truetype'),
+	url('../fonts/light/Raleway-Light.svg#Raleway-Light') format('svg');
 }
 .fontpro,.fontpro-35197 {
-  font-family: 'Raleway-Light',sans-serif;
+	font-family: 'Raleway-Light',sans-serif;
 }
 
 /*--container--*/
@@ -77,7 +77,7 @@ body a{
 .logo span{
 	color: #7D8B94;
 	font-size: 1.3em;
-	 font-family: 'Raleway-SemiBold';
+	font-family: 'Raleway-SemiBold';
 }
 .usernotifications ul{
 	float:left;
@@ -246,11 +246,11 @@ ul.sub li a:hover{
 	padding: 0.6em 0;
 	text-transform: uppercase;
 	cursor:pointer;
-	 transition:0.5s all;
-	 -webkit-transition:0.5s all;
-	 -moz-transition:0.5s all;
-	 -o-transition:0.5s all;
-	 -ms-transition:0.5s all;
+	transition:0.5s all;
+	-webkit-transition:0.5s all;
+	-moz-transition:0.5s all;
+	-o-transition:0.5s all;
+	-ms-transition:0.5s all;
 }
 .sign-in-box input[type="submit"]:hover, input[type="button"]:hover{
 	background: #475965;
@@ -376,7 +376,7 @@ ul.sub li a:hover{
 	background:#1E9FAB;
 }
 .up-load-stats h4{
-	 font-family: 'Raleway-Light';
+	font-family: 'Raleway-Light';
 	color:#596873;
 }
 .social-tags{
@@ -477,6 +477,25 @@ ul.sub li a:hover{
 .msg-type-box{
 	padding: 0.5em 1em 1em;
 	border-top:1px solid #EBEBEB;
+	position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    background-color: #fff;
+}
+
+.textfield{
+	height: 40px;
+    border: 1px solid #e3e3e3;
+    padding-left: 15px;
+    border-radius: 5px;
+    width: calc(100% - 90px);
+    margin-top: 1px;
+}
+.msg-type-box input[type="button"] {
+	display: inline-block;
+    width: 80px;
+    float: right;
 }
 .msg-type-box input[type="text"]{
 	color: #79848C;

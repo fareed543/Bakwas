@@ -38,8 +38,8 @@
 						</div>
 						<div class="msg-type-box">
 							<form>
-								<input id="message" type="text" value="Type your message..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type your message...';}">
-								<input type="button" id="post" value="Send" />
+								<input class="textfield" id="message" type="text" value="Type your message..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type your message...';}">
+								<input type="button" id="post" value="Send" class="sendbutton" />
 							</form>
 						</div>
 					</div>
@@ -79,7 +79,11 @@
 					var conversation = '';
 					$.each(snapshot.val(), function( index, value ) {
 						if(value.username && value.message){
-							conversation += '<div class="chat-msg"><div class="col-xs-2 chat-people"><a href="#">'+value.username+'</a></div><div class="col-xs-9 chat-msg-on"><p>'+value.message+'</p><span> </span></div><div class="clearfix"> </div></div>';
+							if(value.username==name){
+									conversation += '<div class="chat-msg"><div class="col-xs-2 chat-people"><a href="#">'+value.username+'</a></div><div class="col-xs-9 chat-msg-on"><p>'+value.message+'</p><span> </span></div><div class="clearfix"> </div></div>';
+								}else{
+									conversation +='<div class="chat-msg"><div class="col-xs-9 chat-msg-on chat-msg-replay"><p>'+value.message+'</p><span> </span></div><div class="col-xs-2 chat-people"><a>'+value.username+'</a></div><div class="clearfix"> </div></div>';
+							}
 						}					
 					});
 					$(".people-on-chat").empty().append(conversation);
@@ -92,27 +96,24 @@
 					writeUserData(name, message);
 				}
 			});
+			
 			window.setInterval(function(){
-			var ref = firebase.database().ref("chat/");
-			ref.push({	username: name,	message: message})
-			.then(function() {
-				return ref.once("value");
-			})
-			.then(function(snapshot) {
-				var conversation = '';
-				$.each(snapshot.val(), function( index, value ) {
-					if(value.username && value.message){
-					
-						if(value.username==name){
-							conversation +='<div class="chat-msg"><div class="col-xs-9 chat-msg-on chat-msg-replay"><p>'+value.message+'</p><span> </span></div><div class="col-xs-2 chat-people"><a>'+value.username+'</a></div><div class="clearfix"> </div></div>';
-						}else{
-							conversation += '<div class="chat-msg"><div class="col-xs-2 chat-people"><a href="#">'+value.username+'</a></div><div class="col-xs-9 chat-msg-on"><p>'+value.message+'</p><span> </span></div><div class="clearfix"> </div></div>';
-						}
-					}					
+				var ref = firebase.database().ref("chat/");
+				ref.once("value")
+				.then(function(snapshot) {
+					var conversation = '';
+					$.each(snapshot.val(), function( index, value ) {
+						if(value.username && value.message){
+							if(value.username==name){
+									conversation += '<div class="chat-msg"><div class="col-xs-2 chat-people"><a href="#">'+value.username+'</a></div><div class="col-xs-9 chat-msg-on"><p>'+value.message+'</p><span> </span></div><div class="clearfix"> </div></div>';
+								}else{
+									conversation +='<div class="chat-msg"><div class="col-xs-9 chat-msg-on chat-msg-replay"><p>'+value.message+'</p><span> </span></div><div class="col-xs-2 chat-people"><a>'+value.username+'</a></div><div class="clearfix"> </div></div>';
+							}
+						}					
+					});
+					$(".people-on-chat").empty().append(conversation);
 				});
-				$(".people-on-chat").empty().append(conversation);
-				});
-		}, 1000);
+			}, 1000);
 		});
 		
 		
