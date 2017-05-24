@@ -38,13 +38,13 @@
 	</div>
 	<script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
 	<script>
-		/*$( document ).ready(function() {
+		$( document ).ready(function() {
 			var name = localStorage.getItem("name");
 			if(name)
 			{
-			window.location.replace('chat.html');
+				window.location.replace('chat.html');
 			}
-		});*/
+		});
 		
 		var config = {
 			apiKey: "AIzaSyDRLiPrIl4-64sSwxQsxTkjaRYp35GBo1k",
@@ -57,12 +57,13 @@
 		firebase.initializeApp(config);
 		
 		function getUserData(name, password) {
-			return firebase.database().ref('/users/'+name).once('value').then(function(snapshot) {
-				userRecord = snapshot.val();
-				if(userRecord.password == password ){
+			var ref = firebase.database().ref("/users/"+name);
+			ref.once("value")
+			.then(function(snapshot) {
+				if(snapshot.val().password == password ){
 					localStorage.setItem("name", name);
 					window.location.replace('chat.html');
-				}else{
+					}else{
 					console.log("Wrong");
 				}
 			});

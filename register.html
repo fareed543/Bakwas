@@ -7,42 +7,42 @@
 		<link href="css/style.css" rel='stylesheet' type='text/css' />
    		<link rel="stylesheet" href="fonts/css/font-awesome.min.css">
    		<meta name="viewport" content="width=device-width, initial-scale=1">
-		</script>
-	</head>
-	<body>
-		<div class="container">
-			<div class="top-header">
-				<div class="sign-in-box">
-							<h2>Register @ TekChat</h2>
-							<form action="chat.html">
-								<div class="text-boxs">
-								<span class="text-box">
-										<label class="s-user"> </label>
-										<input type="text" id="name" placeholder="name" required /> 
-										<div class="clearfix"> </div>
-									</span>
-									<span class="text-box">
-										<label class="s-user"> </label>
-										<input type="text" id="email" placeholder="Email" required /> 
-										<div class="clearfix"> </div>
-									</span>
-									<span class="text-box">
-										<label class="s-lock"> </label>
-										<input type="password" id="password" placeholder="Password" required /> 
-										<div class="clearfix"> </div>
-									</span>
-								</div>
-								<input type="button" value="Join" id="register"/>
-							</form>
-							<p class="not-member">
-								<a class="member-sign" href="#"> Not a member?</a> <a class="member-signup" href="login.html">Login <span> </span></a>
-							</p>
-						</div>
+	</script>
+</head>
+<body>
+	<div class="container">
+		<div class="top-header">
+			<div class="sign-in-box">
+				<h2>Register @ TekChat</h2>
+				<form action="chat.html">
+					<div class="text-boxs">
+						<span class="text-box">
+							<label class="s-user"> </label>
+							<input type="text" id="name" placeholder="name" required /> 
+							<div class="clearfix"> </div>
+						</span>
+						<span class="text-box">
+							<label class="s-user"> </label>
+							<input type="text" id="email" placeholder="Email" required /> 
+							<div class="clearfix"> </div>
+						</span>
+						<span class="text-box">
+							<label class="s-lock"> </label>
+							<input type="password" id="password" placeholder="Password" required /> 
+							<div class="clearfix"> </div>
+						</span>
+					</div>
+					<input type="button" value="Join" id="register"/>
+				</form>
+				<p class="not-member">
+					<a class="member-sign" href="#"> Not a member?</a> <a class="member-signup" href="login.html">Login <span> </span></a>
+				</p>
 			</div>
-			<div class="clearfix"> </div>			
 		</div>
-		<script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
-		<script>
+		<div class="clearfix"> </div>			
+	</div>
+	<script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+	<script>
 		var config = {
 			apiKey: "AIzaSyDRLiPrIl4-64sSwxQsxTkjaRYp35GBo1k",
 			authDomain: "tekchat-22ff1.firebaseapp.com",
@@ -54,11 +54,17 @@
 		firebase.initializeApp(config);
 		
 		function writeUserData(name, email, password) {
-		  firebase.database().ref('users/' + name).set({
-			username: name,
-			email: email,
-			password : password
-		  });
+			var ref = firebase.database().ref("users/"+name);
+			ref.set({username: name,email: email,password : password })
+			.then(function() {
+				return ref.once("value");
+			})
+			.then(function(snapshot) {
+				localStorage.setItem("name", name);
+				localStorage.setItem("email", email);
+				localStorage.setItem("password", password);
+				window.location.replace('chat.html');
+			});
 		}
 		
 		$("#register").on('click',function(){
@@ -67,13 +73,9 @@
 			var password = $("#password").val();
 			if((name !='') && (password !='') && (email!='')){
 				writeUserData(name, email, password);
-				localStorage.setItem("name", name);
-				localStorage.setItem("email", email);
-				localStorage.setItem("password", password);
-				//window.location.replace('chat.html');
 			}		
 		});
-		</script>
-	</body>
+	</script>
+</body>
 </html>
 

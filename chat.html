@@ -23,22 +23,6 @@
 					<span>TekChat</span>
 				</div>
 				<div class="usernotifications">
-					<ul class="user-profile list-unstyled">
-						<li><a href="#"><img src="images/user-pic.jpg" title="admin" /></a>
-							<ul class="sub list-unstyled">
-								<li><a href="#">Profile</a></li>
-								<li><a href="#">Settings</a></li>
-								<li><a href="#">custom</a></li>
-							</ul>
-						</li>
-					</ul>
-					<ul class="notification list-unstyled user-profile">
-						<li><a href="#"><img src="images/notification-icon.png" title="notifications" /></a>
-							<ul class="sub list-unstyled">
-								<li><a href="#">20</a></li>
-							</ul>
-						</li>
-					</ul>
 					<ul class="logout list-unstyled">
 						<li><a><span id="logout"> </span></a></li>
 					</ul>
@@ -86,18 +70,12 @@
 			firebase.initializeApp(config);
 			
 			function writeUserData(name, message) {
-				firebase.database().ref('chat/').push({
-					username: name,
-					message: message
-				});
-			}
-			$("#post").on('click',function(){
-				var name = localStorage.getItem("name");			
-				var message = $("#message").val();
-				if((name !='') && (message !='')){
-					writeUserData(name, message);
-				}
-				return firebase.database().ref('/chat/').once('value').then(function(snapshot) {
+				var ref = firebase.database().ref("chat/");
+				ref.push({	username: name,	message: message})
+				.then(function() {
+					return ref.once("value");
+				})
+				.then(function(snapshot) {
 					var conversation = '';
 					$.each(snapshot.val(), function( index, value ) {
 						if(value.username && value.message){
@@ -106,27 +84,46 @@
 					});
 					$(".people-on-chat").empty().append(conversation);
 				});
+			}
+			$("#post").on('click',function(){
+				var name = localStorage.getItem("name");			
+				var message = $("#message").val();
+				if((name !='') && (message !='')){
+					writeUserData(name, message);
+				}
 			});
-			
-			return firebase.database().ref('/chat/').once('value').then(function(snapshot) {
+			window.setInterval(function(){
+			var ref = firebase.database().ref("chat/");
+			ref.push({	username: name,	message: message})
+			.then(function() {
+				return ref.once("value");
+			})
+			.then(function(snapshot) {
 				var conversation = '';
 				$.each(snapshot.val(), function( index, value ) {
 					if(value.username && value.message){
-						conversation += '<div class="chat-msg"><div class="col-xs-2 chat-people"><a href="#">'+value.username+'</a></div><div class="col-xs-9 chat-msg-on"><p>'+value.message+'</p><span> </span></div><div class="clearfix"> </div></div>';
+					
+						if(value.username==name){
+							conversation +='<div class="chat-msg"><div class="col-xs-9 chat-msg-on chat-msg-replay"><p>'+value.message+'</p><span> </span></div><div class="col-xs-2 chat-people"><a>'+value.username+'</a></div><div class="clearfix"> </div></div>';
+						}else{
+							conversation += '<div class="chat-msg"><div class="col-xs-2 chat-people"><a href="#">'+value.username+'</a></div><div class="col-xs-9 chat-msg-on"><p>'+value.message+'</p><span> </span></div><div class="clearfix"> </div></div>';
+						}
 					}					
 				});
 				$(".people-on-chat").empty().append(conversation);
-			});
-			
-			
+				});
+		}, 1000);
 		});
+		
+		
+		
+		
 		$("#logout").on('click',function(){
-				console.log("logout");
-				localStorage.removeItem("name");
-				localStorage.removeItem("email");
-				localStorage.removeItem("password");				
-				window.location.replace('index.html');
-			});
+			localStorage.removeItem("name");
+			localStorage.removeItem("email");
+			localStorage.removeItem("password");				
+			window.location.replace('index.html');
+		});
 	</script>
 	
 	
