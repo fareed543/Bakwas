@@ -3,16 +3,16 @@
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
 xmlns:gap = "http://phonegap.com/ns/1.0"
-id        = "com.tekzenit.tekchat"
+id        = "com.fareed.bakwas"
 version   = "1.0.0">
 	
-    <name>TekChat</name>
+    <name>Bakwas</name>
 	
     <description>
-        TekChat
+        Now do Limitless Bakwas
 	</description>
 	
-    <author href="http://tekzenit.com" email="mohammad.fareed@tekzenit.com">
+    <author href="http://abdulfareed.wordpress.com" email="fareed543@gmail.com">
         Mohammad Abdul Fareed
 	</author>
 	
